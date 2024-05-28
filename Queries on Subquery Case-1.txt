@@ -1,0 +1,490 @@
+Q1) WRITE A QUERY TO DISPLAY THE EMPLOYEE NAMES WHO ARE
+EARNING MORE THAN SMITH.
+
+SQL> select ename, sal from emp where sal> (select sal from emp where ename = 'SMITH');
+
+ENAME             SAL                                                                               
+---------- ----------                                                                               
+ALLEN            1600                                                                               
+WARD             1250                                                                               
+JONES            2975                                                                               
+MARTIN           1250                                                                               
+BLAKE            2850                                                                               
+CLARK            2450                                                                               
+SCOTT            3000                                                                               
+KING             5000                                                                               
+TURNER           1500                                                                               
+ADAMS            1100                                                                               
+JAMES             950                                                                               
+FORD             3000                                                                               
+MILLER           1300                                                                               
+
+13 rows selected.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+
+Q2) WRITE A QUERY TO DISPLAY ALL THE EMPLOYEES WHO’S DEPT
+NUMBER IS SAME AS SCOTT.
+
+SQL> select ename, deptno from emp where deptno = (select deptno from emp where ename = 'SCOTT');
+
+ENAME          DEPTNO                                                                               
+---------- ----------                                                                               
+SMITH              20                                                                               
+JONES              20                                                                               
+SCOTT              20                                                                               
+ADAMS              20                                                                               
+FORD               20                                                                               
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+
+Q3) LIST THE EMPLOYEES WHO HAS SALARY GREATER THAN MILLER.
+
+SQL> select ename, sal from emp where ename = 'MILLER';
+
+ENAME             SAL                                                                               
+---------- ----------                                                                               
+MILLER           1300                                                                               
+
+SQL> select ename, sal from emp where sal > (select sal from emp where ename = 'MILLER');
+
+ENAME             SAL                                                                               
+---------- ----------                                                                               
+ALLEN            1600                                                                               
+JONES            2975                                                                               
+BLAKE            2850                                                                               
+CLARK            2450                                                                               
+SCOTT            3000                                                                               
+KING             5000                                                                               
+TURNER           1500                                                                               
+FORD             3000                                                                               
+
+8 rows selected.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+
+Q4) WRITE A QUERY TO DISPLAY ALL THE EMPLOYEE WHOSE JOB 
+IS NOT SAME AS ALLEN AND SALARY IS GREATER THAN
+MARTIN.
+
+SQL> select job from emp where ename = 'ALLEN';
+
+JOB                                                                                                 
+---------                                                                                           
+SALESMAN     
+
+SQL> select sal from emp where ename = 'MARTIN';
+
+       SAL                                                                                          
+----------                                                                                          
+      1250                                                                                                                                                                                
+
+SQL>  select ename, job, sal from emp where job != (select job from emp where ename = 'ALLEN')
+  2  and sal > (select sal from emp where ename = 'MARTIN');
+
+ENAME      JOB              SAL                                                                     
+---------- --------- ----------                                                                     
+JONES      MANAGER         2975                                                                     
+BLAKE      MANAGER         2850                                                                     
+CLARK      MANAGER         2450                                                                     
+SCOTT      ANALYST         3000                                                                     
+KING       PRESIDENT       5000                                                                     
+FORD       ANALYST         3000                                                                     
+MILLER     CLERK           1300                                                                     
+
+7 rows selected.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+
+Q5) LIST ALL THE EMPLOYEES WHOSE JOB IS SAME AS JONES AND
+THEIR SALARY LESSER THAN SCOTT.
+
+SQL> select ename, job from emp where job = (select job from emp where ename = 'JONES');
+
+ENAME      JOB                                                                                      
+---------- ---------                                                                                
+JONES      MANAGER                                                                                  
+BLAKE      MANAGER                                                                                  
+CLARK      MANAGER  
+
+SQL> select ename, sal from emp where ename = 'SCOTT';
+
+ENAME             SAL                                                                               
+---------- ----------                                                                               
+SCOTT            3000                                                                                       
+                                                                                
+SQL> select ename, sal from emp where sal < (select sal from emp where ename = 'SCOTT');
+
+ENAME             SAL                                                                               
+---------- ----------                                                                               
+SMITH             800                                                                               
+ALLEN            1600                                                                               
+WARD             1250                                                                               
+JONES            2975                                                                               
+MARTIN           1250                                                                               
+BLAKE            2850                                                                               
+CLARK            2450                                                                               
+TURNER           1500                                                                               
+ADAMS            1100                                                                               
+JAMES             950                                                                               
+MILLER           1300                                                                               
+
+11 rows selected.                                                               
+
+SQL> select ename, job, sal from emp where  job = (select job from emp where ename = 'JONES') and  sal < (select sal from emp where ename = 'SCOTT');
+
+ENAME      JOB              SAL                                                                     
+---------- --------- ----------                                                                     
+JONES      MANAGER         2975                                                                     
+BLAKE      MANAGER         2850                                                                     
+CLARK      MANAGER         2450                                                                                                                                     
+
+SQL> select * from emp order by sal desc;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM     DEPTNO               
+---------- ---------- --------- ---------- --------- ---------- ---------- ----------               
+      7839 KING       PRESIDENT            17-NOV-81       5000                    10               
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                    20               
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                    20               
+      7566 JONES      MANAGER         7839 02-APR-81       2975                    20               
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                    30               
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                    10               
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300         30               
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0         30               
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                    10               
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500         30               
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400         30               
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                    20               
+      7900 JAMES      CLERK           7698 03-DEC-81        950                    30               
+      7369 SMITH      CLERK           7902 17-DEC-80        800                    20               
+
+14 rows selected.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+
+Q6) DISPLAY ALL THE EMPLOYEES WHO ARE JOINED AFTER BLAKE.
+
+SQL> select hiredate from emp where ename = 'BLAKE';
+
+HIREDATE                                                                                            
+---------                                                                                           
+01-MAY-81                                                                                           
+
+SQL> select ename, hiredate from emp
+  2  where hiredate > (select hiredate from emp where ename = 'BLAKE');
+
+ENAME      HIREDATE                                                                                 
+---------- ---------                                                                                
+MARTIN     28-SEP-81                                                                                
+CLARK      09-JUN-81                                                                                
+SCOTT      19-APR-87                                                                                
+KING       17-NOV-81                                                                                
+TURNER     08-SEP-81                                                                                
+ADAMS      23-MAY-87                                                                                
+JAMES      03-DEC-81                                                                                
+FORD       03-DEC-81                                                                                
+MILLER     23-JAN-82                                                                                
+
+9 rows selected.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+
+Q7) WRITE A QUERY TO DISPLAY THE EMPLOYEE INFORMATION
+WHO IS NOT
+TAKING COMMISSION AND JOINED COMPANY AFTER ALLEN.
+
+SQL> select ename, comm from emp where comm is null or comm = 0;
+
+ENAME            COMM                                                                               
+---------- ----------                                                                               
+SMITH                                                                                               
+JONES                                                                                               
+BLAKE                                                                                               
+CLARK                                                                                               
+SCOTT                                                                                               
+KING                                                                                                
+TURNER              0                                                                               
+ADAMS                                                                                               
+JAMES                                                                                               
+FORD                                                                                                
+MILLER                                                                                              
+
+11 rows selected.
+
+SQL> select hiredate from emp where ename = 'ALLEN';
+
+HIREDATE                                                                                            
+---------                                                                                           
+20-FEB-81                                                                                           
+
+SQL> select ename, comm, hiredate from emp where comm is null and hiredate > (select hiredate from emp where ename = 'ALLEN');
+
+ENAME            COMM HIREDATE                                                                      
+---------- ---------- ---------                                                                     
+JONES                 02-APR-81                                                                     
+BLAKE                 01-MAY-81                                                                     
+CLARK                 09-JUN-81                                                                     
+SCOTT                 19-APR-87                                                                     
+KING                  17-NOV-81                                                                     
+ADAMS                 23-MAY-87                                                                     
+JAMES                 03-DEC-81                                                                     
+FORD                  03-DEC-81                                                                     
+MILLER                23-JAN-82                                                                     
+
+9 rows selected.
+
+SQL> select ename, comm, hiredate from emp where comm is null and hiredate > 
+  2  (select hiredate from emp where ename = 'ALLEN') or 
+  3  comm = 0 and hiredate > (select hiredate from emp where ename = 'ALLEN');
+
+ENAME            COMM HIREDATE
+---------- ---------- ---------
+JONES                 02-APR-81
+BLAKE                 01-MAY-81
+CLARK                 09-JUN-81
+SCOTT                 19-APR-87
+KING                  17-NOV-81
+TURNER              0 08-SEP-81
+ADAMS                 23-MAY-87
+JAMES                 03-DEC-81
+FORD                  03-DEC-81
+MILLER                23-JAN-82
+
+10 rows selected.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+
+Q8) DISPLAY DETAILS OF EMPLOYEES ALONG WITH HIKE OF 35% IN
+SALARY WORKING AS PRESIDENT AND EARNING MORE THAN SMITH.
+ 
+SQL> select ename, job, sal*1.35 as "Hiked Salary" from emp where job = 'PRESIDENT' and sal > (select sal from emp where ename = 'SMITH');
+
+ENAME      JOB       Hiked Salary                                                                   
+---------- --------- ------------                                                                   
+KING       PRESIDENT         6750                                                                   
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename, job, sal*1.35 as "Hiked Salary" 
+  2  from emp 
+  3* where job = 'PRESIDENT' and sal > (select sal from emp where ename = 'SMITH')
+SQL> /
+
+ENAME      JOB       Hiked Salary                                                                   
+---------- --------- ------------                                                                   
+KING       PRESIDENT         6750                                                                   
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+
+Q9) DISPLAY NAMES OF EMPLOYEES WHOSE COMMISSION IS MORE
+THAN SALARY AND HIRED BEFORE KING.
+
+SQL> select ename, comm, sal, hiredate 
+  2  from emp 
+  3  where comm < sal and hiredate > (select hiredate from emp where ename = 'KING');
+
+no rows selected
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  select ename, comm, sal, hiredate 
+  2  from emp 
+  3* where comm > sal and hiredate < (select hiredate from emp where ename = 'KING')
+SQL> /
+
+ENAME            COMM        SAL HIREDATE                                                           
+---------- ---------- ---------- ---------                                                          
+MARTIN           1400       1250 28-SEP-81                                                          
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+
+Q10) LIST THE EMPLOYEES WHOSE DAILY SALARY IS GREATER THAN
+ALLEN AND WHO ARE JOINED BEFORE MILLER ONLY.
+
+SQL> select ename, sal, hiredate from emp where sal > (select sal from emp where
+  2  ename = 'ALLEN') and hiredate < (select hiredate from emp where ename = 'MILLER');
+
+ENAME             SAL HIREDATE                                                                      
+---------- ---------- ---------                                                                     
+JONES            2975 02-APR-81                                                                     
+BLAKE            2850 01-MAY-81                                                                     
+CLARK            2450 09-JUN-81                                                                     
+KING             5000 17-NOV-81                                                                     
+FORD             3000 03-DEC-81                                                                     
+
+SQL> select hiredate from emp where ename = 'MILLER';
+
+HIREDATE                                                                                            
+---------                                                                                           
+23-JAN-82                                                                                           
+
+SQL> select sal from emp where ename = 'ALLEN';
+
+       SAL                                                                                          
+----------                                                                                          
+      1600                                                                                          
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+
+Q11) DISPLAY NUMBER OF EMPLOYEES WHOSE COMMISSION IS
+MORE THAN SALARY AND EARNING MORE THAN SMITH.
+ 
+SQL> select count(ename) from emp where comm > sal and sal > (select sal from emp where ename = 'SMITH') group by ename;
+
+COUNT(ENAME)                                                                                        
+------------                                                                                        
+           1                                                                                        
+
+SQL> select count(ename) from emp where comm > sal group by ename;
+
+COUNT(ENAME)                                                                                        
+------------                                                                                        
+           1                                                                                        
+
+SQL> select ename, comm, sal from emp where comm > sal;
+
+ENAME            COMM        SAL
+---------- ---------- ----------
+MARTIN           1400       1250                                                                                            
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+
+Q12) DISPLAY ALL THE EMPLOYEES WHOSE NAME START WITH 'S'
+AND HAVING SALARY MORE THAN 'ALLEN' AND LESS THAN ‘FORD’.
+
+SQL> select ename, sal from emp where ename like 'S%' and sal not between (select sal from emp where ename = 'FORD') and (select sal from emp where ename = 'ALLEN');
+
+ENAME             SAL                                                                               
+---------- ----------                                                                               
+SMITH             800                                                                               
+SCOTT            3000                                                                               
+
+SQL> select sal from emp where ename = 'FORD';
+
+       SAL                                                                                          
+----------                                                                                          
+      3000                                                                                          
+
+SQL> select sal from emp where ename = 'ALLEN';
+
+       SAL                                                                                          
+----------                                                                                          
+      1600                                                                                          
+
+SQL> select ename, sal from emp where sal between (select sal from emp where ename = 'ALLEN') and (s
+elect sal from emp where ename = 'FORD');
+
+ENAME             SAL
+---------- ----------
+ALLEN            1600
+JONES            2975
+BLAKE            2850
+CLARK            2450
+SCOTT            3000
+FORD             3000
+
+6 rows selected.
+
+SQL> select ename, sal from emp where ename like 'S%' and sal between (select sal from emp where ena
+me = 'ALLEN') and (select sal from emp where ename = 'FORD');
+
+ENAME             SAL
+---------- ----------
+SCOTT            3000
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL>
+
+Q13) DISPLAY THE DEPARTMENT NAMES THAT ARE HAVING ATLEAST
+ONE 'L' IN IT.
+
+SQL> select dname from dept where dname like '%L%' and dname not like '%L%L%';
+
+DNAME                                                                                               
+--------------                                                                                      
+SALES                                                                                               
+
+SQL> select dname from dept where dname like '%L%';
+
+DNAME                                                                                               
+--------------                                                                                      
+SALES                                                                                               
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+
+Q14) DISPLAY THE MANAGER REPORTING, JOB AND 
+DEPARTMENT NUMBER FOR THOSE WHO DON'T HAVE
+COMMISSION.
+
+SQL> select ename, mgr, job, deptno from emp where comm is null or comm = 0;
+
+ENAME             MGR JOB           DEPTNO                                                          
+---------- ---------- --------- ----------                                                          
+SMITH            7902 CLERK             20                                                          
+JONES            7839 MANAGER           20                                                          
+BLAKE            7839 MANAGER           30                                                          
+CLARK            7839 MANAGER           10                                                          
+SCOTT            7566 ANALYST           20                                                          
+KING                  PRESIDENT         10                                                          
+TURNER           7698 SALESMAN          30                                                          
+ADAMS            7788 CLERK             20                                                          
+JAMES            7698 CLERK             30                                                          
+FORD             7566 ANALYST           20                                                          
+MILLER           7782 CLERK             10                                                          
+
+11 rows selected.
+ april -may
+

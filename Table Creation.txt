@@ -1,0 +1,76 @@
+Create table customer
+(
+cid char(2) NOT NULL,
+cname varchar(20) NOT NULL,
+ccity varchar(25) NOT NULL,
+ccontact number(10) NOT NULL,
+constraint pk PRIMARY KEY(cid),
+constraint u UNIQUE(ccontact),
+constraint ck CHECK(LENGTH(ccontact) = 10)
+);
+
+Create table account
+(
+acnum char(5) NOT NULL,
+bal number(5,2) NOT NULL,
+constraint u2 UNIQUE(acnum)
+);
+
+Create table depositor
+(
+cid char(2) NOT NULL,
+acnum char(5) NOT NULL,
+constraint pk3 PRIMARY KEY(cid),
+constraint u3 UNIQUE(acnum)
+);
+
+Insert all
+into customer(cid, cname, ccity, ccontact)
+values('01', 'Johnson', 'Palo Alto', 8207792741)
+into customer(cid, cname, ccity, ccontact)
+values('02', 'Smith', 'Rye', 9417792345)
+into customer(cid, cname, ccity, ccontact)
+values('03', 'Hayes', 'Harrison', 7205792741)
+into customer(cid, cname, ccity, ccontact)
+values('04', 'Turner', 'Stamford', 5207794740)
+into customer(cid, cname, ccity, ccontact)
+values('05', 'Jones', 'Harrison', 9907692744)
+into customer(cid, cname, ccity, ccontact)
+values('06', 'Lindsay', 'Pittsfield', 1409792042)
+into customer(cid, cname, ccity, ccontact)
+values('07', 'Smith', 'Rye', 3267196721)
+select * from dual;
+
+Insert all
+into account(acnum, bal)
+values('A-101', 500)
+into account(acnum, bal)
+values('A-215', 700)
+into account(acnum, bal)
+values('A-102', 400)
+into account(acnum, bal)
+values('A-305', 350)
+into account(acnum, bal)
+values('A-201', 900)
+into account(acnum, bal)
+values('A-217', 750)
+into account(acnum, bal)
+values('A-222', 700)
+select * from dual;
+
+Insert all
+into depositor(cid, acnum)
+values('01', 'A-101')
+into depositor(cid, acnum)
+values('02', 'A-201')
+into depositor(cid, acnum)
+values('07', 'A-215')
+into depositor(cid, acnum)
+values('03', 'A-102')
+into depositor(cid, acnum)
+values('04', 'A-305')
+into depositor(cid, acnum)
+values('05', 'A-217')
+into depositor(cid, acnum)
+values('06', 'A-222')
+select * from dual;
